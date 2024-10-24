@@ -11,7 +11,7 @@ resource "aws_lambda_function" "my_lambda" {
   }
 }
 
-resource "aws_lambda_function" "my_lambda" {
+resource "aws_lambda_function" "my_lambda-1" {
   filename         = "lambda_payload.zip"  
   function_name    = "my_lambda_function-1"
   role             = data.aws_iam_role.lambda.arn
