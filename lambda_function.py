@@ -1,5 +1,7 @@
 import json
-import requests
+import urllib3
+
+http = urllib3.PoolManager()
 
 def lambda_handler(event, context):
     subnet_id = event['subnet_id']
@@ -9,7 +11,7 @@ def lambda_handler(event, context):
         "email": "jainhimanshu207@gmail.com"
     }
     headers = {'X-Siemens-Auth': 'test'}
-    response = requests.post(
+    response = http.request('POST',
         "https://bc1yy8dzsg.execute-api.eu-west-1.amazonaws.com/v1/data",
         headers=headers,
         json=payload
