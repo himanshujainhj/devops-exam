@@ -47,8 +47,17 @@ pipeline{
 
                     // Invoke the Lambda function with the subnet ID in the payload
                     sh """
-                    aws lambda invoke --invocation-type Event --cli-binary-format raw-in-base64-out --payload '${lambdaPayload}' --function-name my_lambda_function out --log-type Tail
+                    aws lambda invoke --invocation-type RequestResponse --cli-binary-format raw-in-base64-out --payload '${lambdaPayload}' --function-name my_lambda_function-5 out --log-type Tail
                     """
+                }
+            }
+        }
+
+        stage('Print Lambda Output') {
+            steps {
+                script {
+                    // Print the content of the 'out' file
+                    sh 'cat out'
                 }
             }
         }
