@@ -15,7 +15,7 @@ resource "aws_route_table" "private_route_table" {
 
   route {
     nat_gateway_id = data.aws_nat_gateway.nat.id
-    destination_cidr_block = "0.0.0.0/0"
+    cidr_block = "0.0.0.0/0"
   }
 
   tags = {
@@ -30,7 +30,7 @@ resource "aws_route_table_association" "subnet_association" {
 
 # Security Group for Lambda
 resource "aws_security_group" "lambda_sg" {
-  vpc_id = data.aws_vpc.exam_vpc.id
+  vpc_id = data.aws_vpc.vpc.id
 
   ingress {
     from_port   = 443
