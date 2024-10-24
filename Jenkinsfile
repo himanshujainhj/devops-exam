@@ -42,17 +42,12 @@ pipeline{
             steps {
                 script {
                     // Create the event payload with subnet ID
-                    def lambdaPayload = """
-                    {
-                      "subnet_id": "${env.SUBNET_ID}"
-                    }
-                    """
+                    def lambdaPayload = '{"subnet_id": "' + env.SUBNET_ID + '"}'
                     echo "Lambda Payload: ${lambdaPayload}"
 
                     // Invoke the Lambda function with the subnet ID in the payload
                     sh """
-                    aws lambda invoke --payload '${lambdaPayload}' \
-                      --function-name my_lambda_function out --log-type Tail
+                    aws lambda invoke --invocation-type Event --cli-binary-format raw-in-base64-out --payload '${lambdaPayload}' --function-name my_lambda_function out --log-type Tail
                     """
                 }
             }
