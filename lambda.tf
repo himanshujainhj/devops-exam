@@ -9,8 +9,4 @@ resource "aws_lambda_function" "my_lambda" {
     subnet_ids         = [aws_subnet.private_subnet.id]
     security_group_ids = [aws_security_group.lambda_sg.id]
   }
-
-  tags = {
-    Name = "my-lambda"
-  }
 }
