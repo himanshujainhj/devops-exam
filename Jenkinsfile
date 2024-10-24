@@ -16,22 +16,22 @@ pipeline{
                 sh 'terraform plan'
             }
         }
-        // stage("TF Apply"){
-        //     steps{
-        //         sh 'terraform apply -auto-approve'
-        //     }
-        // }
-        // stage("Invoke Lambda"){
-        //     steps {
-        //         script {
-        //             def lambdaResult = sh(
-        //                 script: "aws lambda invoke --function-name my_lambda_function --log-type Tail output.log",
-        //                 returnStdout: true
-        //             ).trim()
-        //             echo "Lambda Invocation Result: ${lambdaResult}"
-        //         }
-        //     }
-        // }
+        stage("TF Apply"){
+            steps{
+                sh 'terraform apply -auto-approve'
+            }
+        }
+        stage("Invoke Lambda"){
+            steps {
+                script {
+                    def lambdaResult = sh(
+                        script: "aws lambda invoke --function-name my_lambda_function out --log-type Tail",
+                        returnStdout: true
+                    ).trim()
+                    echo "Lambda Invocation Result: ${lambdaResult}"
+                }
+            }
+        }
     }
 }
 
